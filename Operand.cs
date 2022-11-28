@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic.CompilerServices;
-
 namespace Analyzer {
 
 	using Operator = Operand;
+
 	internal class Operand
 	{
 		// 符号优先级，行是否小于列
@@ -82,12 +76,6 @@ namespace Analyzer {
 
 		// 运算对象字符
 		private String name;
-
-		public String Name
-		{
-			get => name;
-			set => name = value;
-		}
 
 		// 重载 toString() 方法
 		public override string ToString()

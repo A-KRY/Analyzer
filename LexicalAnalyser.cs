@@ -1,24 +1,4 @@
-﻿//#undef Debug
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Analyzer {
-	/*
-	// 关键字
-	enum Keyword
-	{
-		INVALID = 0,
-		IF = 1,
-		ELSE = 2,
-		FOR = 3,
-		DO = 4,
-		BEGIN = 5,
-		END = 6,
-	}
-	*/
 
 	// 助记符
 	enum Mnemonic {
@@ -119,36 +99,32 @@ namespace Analyzer {
 				return uniqueInstance;
 			}
 		}
-		/*
-		// 输入输出文件流
-		private StreamReader streamReader;
-		//private StreamWriter streamWriter;
-		*/
+
+		// 构造函数
+		private LexicalAnalyzer() {
+			InitKeywordTable();
+			NumericAnalyzer.SetDelegate(GetChar, CAT, Retract);
+		}
 
 		// 当前读入的部分字符
-		private String? buffer;
-		
+		private String? buffer = String.Empty;
 
 		public bool HasNext
 		{
 			get
 			{
-#if Debug
-				Console.WriteLine("EOF:"+Analyzer.streamReader.EndOfStream);
-				Console.WriteLine("currIndex="+currIndex+" bufferSize="+buffer.Length);
-#endif
 				return !(Analyzer.streamReader.EndOfStream && currIndex == buffer.Length-1);
 			}
 		}
 
 		// 当前指向字符的角标
-		private Int32 currIndex;
+		private Int32 currIndex = 0;
 
 		// 当前行数
-		private Int32 lineCnt;
+		private Int32 lineCnt = 0;
 
 		// 当前单词的各个字符
-		private String token;
+		private String token = String.Empty;
 
 		// 输出的单词
 		private Operand word;
@@ -157,7 +133,7 @@ namespace Analyzer {
 		private Dictionary<String, Mnemonic> KeywordTable;
 
 		// 数值识别器
-		private NumericAnalyzer numericAnalyzer;
+		private NumericAnalyzer numericAnalyzer = NumericAnalyzer.Instance;
 
 		// 数值及类型
 		private String value;
@@ -172,49 +148,17 @@ namespace Analyzer {
 			set => success = value;
 		}
 
-		private LexicalAnalyzer()
-		{
-			buffer = String.Empty;
-			//bufferSize = 0;
-			currIndex = 0;
-			lineCnt = 0;
-			token = String.Empty;
-			//streamReader = StreamReader.Null;
-			InitKeywordTable();
-			numericAnalyzer = NumericAnalyzer.Instance;
-
-			NumericAnalyzer.SetDelegate(GetChar, CAT, Retract
-#if Debug
-				, LOG
-#endif
-			);
-		}
-
-		~LexicalAnalyzer()
-		{
-			/*
-			if (streamReaderOpened)
-			{
-				streamReader.Close();
-			}
-
-			if (streamWriterOpened)
-			{
-				streamWriter.Close();
-			}
-			*/
-		}
-
 		// 初始化 KeywordTable
 		private void InitKeywordTable()
 		{
-			KeywordTable = new Dictionary<String, Mnemonic>();
-			KeywordTable["if"] = Mnemonic.IF;
-			KeywordTable["else"] = Mnemonic.ELSE;
-			KeywordTable["for"] = Mnemonic.FOR;
-			KeywordTable["do"] = Mnemonic.DO;
-			KeywordTable["begin"] = Mnemonic.BEGIN;
-			KeywordTable["end"] = Mnemonic.END;
+			KeywordTable = new Dictionary<String, Mnemonic> {
+				["if"] = Mnemonic.IF,
+				["else"] = Mnemonic.ELSE,
+				["for"] = Mnemonic.FOR,
+				["do"] = Mnemonic.DO,
+				["begin"] = Mnemonic.BEGIN,
+				["end"] = Mnemonic.END
+			};
 		}
 
 		// 读入 buffer
@@ -229,9 +173,6 @@ namespace Analyzer {
 			{
 				++lineCnt;
 			}
-#if Debug
-			Console.WriteLine("buffer:" + buffer+";");
-#endif
 		}
 
 		// 将当前字符送入 currCh 并更新 currIndex
@@ -263,9 +204,6 @@ namespace Analyzer {
 		void CAT(char currCh)
 		{
 			token += currCh;
-#if Debug
-			Console.WriteLine("Cat");
-#endif
 		}
 
 		// 判断 token 的关键字类型
@@ -273,9 +211,6 @@ namespace Analyzer {
 		{
 			if (KeywordTable.ContainsKey(token))
 			{
-#if Debug
-				Console.WriteLine("LookUp");
-#endif
 				return KeywordTable[token];
 			}
 			else
@@ -288,114 +223,15 @@ namespace Analyzer {
 		private void Retract()
 		{
 			--currIndex;
-#if Debug
-			Console.WriteLine("Before:"+token+";");
-#endif
 			token = token.Remove(token.Length - 1);
-#if Debug
-			Console.WriteLine("After:"+token+";");
-#endif
 		}
 
 		// 输出单词的二元表达式
 		private void Out(Mnemonic type, String str = "")
 		{
 			word = new Operand(type, str);
-			/*
-			streamWriter.Write('(');
-			switch (type)
-			{
-				case Mnemonic.IF:
-					streamWriter.Write("IF");
-					break;
-				case Mnemonic.ELSE:
-					streamWriter.Write("ELSE");
-					break;
-				case Mnemonic.FOR:
-					streamWriter.Write("FOR");
-					break;
-				case Mnemonic.DO:
-					streamWriter.Write("DO");
-					break;
-				case Mnemonic.BEGIN:
-					streamWriter.Write("BEGIN");
-					break;
-				case Mnemonic.END:
-					streamWriter.Write("END");
-					break;
-				case Mnemonic.ID:
-					streamWriter.Write("ID");
-					break;
-				case Mnemonic.INT:
-					streamWriter.Write("INT");
-					break;
-				case Mnemonic.REAL:
-					streamWriter.Write("REAL");
-					break;
-				case Mnemonic.LT:
-					streamWriter.Write("LT");
-					break;
-				case Mnemonic.LE:
-					streamWriter.Write("LE");
-					break;
-				case Mnemonic.EQ:
-					streamWriter.Write("EQ");
-					break;
-				case Mnemonic.NE:
-					streamWriter.Write("NE");
-					break;
-				case Mnemonic.GT:
-					streamWriter.Write("GT");
-					break;
-				case Mnemonic.GE:
-					streamWriter.Write("GE");
-					break;
-				case Mnemonic.IS:
-					streamWriter.Write("IS");
-					break;
-				case Mnemonic.PL:
-					streamWriter.Write("PL");
-					break;
-				case Mnemonic.MI:
-					streamWriter.Write("MI");
-					break;
-				case Mnemonic.MU:
-					streamWriter.Write("MU");
-					break;
-				case Mnemonic.DI:
-					streamWriter.Write("DI");
-					break;
-				case Mnemonic.LB:
-					streamWriter.Write("LB");
-					break;
-				case Mnemonic.RB:
-					streamWriter.Write("RB");
-					break;
-				case Mnemonic.INVALID:
-				default:
-					streamWriter.Write("INVALID");
-					break;
-			}
-			streamWriter.WriteLine(", "+str+')');
-			*/
 		}
 
-		/*
-		public void InitStreamReader(String path)
-		{
-			if (streamReader is not null)
-			{
-				streamReader.Close();
-			}
-			streamReader = new StreamReader(path);
-		}
-	
-		
-		public void InitStreamWriter(String path)
-		{
-			streamWriter = new StreamWriter(path);
-		}
-		*/
 
 		// 识别单词字符类型
 		private LA_TYPE LA_GetChType()
@@ -403,9 +239,6 @@ namespace Analyzer {
 			
 			char ch = GetChar();
 			CAT(ch);
-#if Debug
-			Console.WriteLine("ch="+ch+"; "+Convert.ToInt32(ch));
-#endif
 			if (Char.IsDigit(ch)) {
 				return LA_TYPE.DIGIT;
 			}
@@ -459,9 +292,6 @@ namespace Analyzer {
 		// 执行单词识别
 		private void LA_Execute(ref LA_STATE currState, LA_TYPE chType)
 		{
-#if Debug
-			LOG("currState=", currState.ToString(), " Line "+(lineCnt+1));
-#endif
 			switch (currState) {
 				case LA_STATE.BGN:
 					switch (chType) {
@@ -538,9 +368,6 @@ namespace Analyzer {
 						success = true;
 					}
 					else {
-#if Debug
-						Console.WriteLine("Out!");
-#endif
 						Out((Mnemonic)TYPE);
 						success = true;
 					}
@@ -707,13 +534,6 @@ namespace Analyzer {
 			                    " Column " + (currIndex+1)+" : 单词 \"" + 
 			                    token + "\" 非法");
 		}
-		/*
-		public bool HasNext()
-		{
-			Console.WriteLine(buffer);
-			return buffer is not null;
-		}
-		*/
 
 		public Operand GetNext()
 		{
@@ -721,12 +541,6 @@ namespace Analyzer {
 			{
 				throw new IOException("Input file not opened.");
 			}
-			/*
-			if (streamWriter is null)
-			{
-				throw new IOException("Output file not opened.");
-			}
-			*/
 			
 			LA_STATE currState = LA_STATE.BGN;
 			while (currState != LA_STATE.END) 
@@ -734,26 +548,8 @@ namespace Analyzer {
 				LA_Execute(ref currState, LA_GetChType());
 			}
 
-			//Console.WriteLine("CurrIndex="+currIndex+" bufferSize="+buffer.Count());
-
-			//Console.WriteLine("word: "+word.Name);
-
 			return this.word;
-
-			//streamReader.Close();
-			//streamWriter.Close();
 		}
-#if Debug
-		private void LOG<T>(params T[] vars)
-		{
-			Console.Write("currIndex="+currIndex+" token="+token+";");
-			foreach (T var in vars)
-			{
-				Console.Write(var.ToString());
-			}
-			Console.Write('\n');
-		}
-#endif
 
 	}
 }

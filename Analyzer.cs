@@ -1,4 +1,4 @@
-﻿namespace Analyzer
+namespace Analyzer
 {
 	public class Analyzer
 	{
@@ -8,11 +8,12 @@
 
 		public static void Main(string[] args)
 		{
-			Debug.InitStreamWriter("log.txt");
 			InitStreamReader("input.txt");
 			InitStreamWriter("output.txt");
 			Run();
-			Console.WriteLine("请按任意键继续...");
+			Console.WriteLine("Successful.");
+			Console.WriteLine();
+			Console.Write("请按任意键继续...");
 			Console.ReadKey();
 		}
 

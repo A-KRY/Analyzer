@@ -1,10 +1,3 @@
-﻿//#undef DEBUG
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Analyzer {
 
 	using Operator = Operand;
@@ -30,22 +23,6 @@ namespace Analyzer {
 			operandStack = new Stack<Operand>();
 			postfixExpr = new Queue<Operand>();
 		}
-		
-		/*
-		// 输出流
-		private StreamWriter? streamWriter = null;
-
-		// 初始化输出流
-		public void  InitStreamWriter(String path) {
-			if (streamWriter is not null) {
-				streamWriter.Close();
-			}
-			streamWriter = new StreamWriter(path);
-			streamWriter.AutoFlush = true;
-		}
-		*/
-
-		//private int quaternionCnt = 0;
 
 		// 临时变量计数
 		private int tmpVarCnt = 0;
@@ -65,22 +42,10 @@ namespace Analyzer {
 			return "T" + (++tmpVarCnt);
 		}
 
-
 		// 输出四元式
 		public void Generate(Operator opr, Operand? opd1, Operand? opd2, Operand result)
 		{
-			/*
-			if (streamWriter is null)
-			{
-				throw new IOException("StreamWriter not Initialized.");
-			}
-			*/
-
 			Analyzer.streamWriter.WriteLine("("+opr+", "+opd1+", "+opd2+", "+result+")");
-#if DEBUG
-			Console.WriteLine("("+opr+", "+opd1+", "+opd2+", "+result+")");
-			Debug.LogWriteLine("("+opr+", "+opd1+", "+opd2+", "+result+")");
-#endif
 		}
 
 		// 将运算对象送入后缀表达式
@@ -108,13 +73,6 @@ namespace Analyzer {
 				}
 				operatorStack.Push(opd);
 			}
-#if DEBUG
-			Console.Write("oprStack: ");
-			Debug.ShowStack(operatorStack);
-			
-			Debug.LogWrite("oprStack: ");
-			Debug.LogShowStack(operatorStack);
-#endif
 		}
 
 		// 向后处理一个运算符
@@ -143,18 +101,6 @@ namespace Analyzer {
 				postfixExpr.Enqueue(operatorStack.Pop());
 				CalcNext();
 			}
-
-
-#if DEBUG
-			Console.WriteLine();
-			Console.WriteLine("Finish.");
-			Console.WriteLine();
-
-			Debug.LogWriteLine();
-			Debug.LogWriteLine("Finish.");
-			Debug.LogWriteLine();
-			Debug.Close();
-#endif
 		}
 	}
 }

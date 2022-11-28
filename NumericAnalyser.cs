@@ -1,22 +1,15 @@
-﻿//#undef Debug
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Analyzer {
 
 	// 数值识别状态
 	enum NA_STATE {
-		BGN = 0,  // begin            初态
-		US = 1,  // unsigned         无符号数
-		DF = 2,  // decimal fraction 十进制小数
-		FR = 3,  // fraction         小数
-		EXP = 4,  // exponent         指数
-		IE = 5,  // integer exponent 整指数
-		RIE = 6,  // residual int exp 余留整指数
-		END = 7,  // end state        末态
+		BGN,	// begin            初态
+		US,		// unsigned         无符号数
+		DF,		// decimal fraction 十进制小数
+		FR,		// fraction         小数
+		EXP,	// exponent         指数
+		IE,		// integer exponent 整指数
+		RIE,	// residual int exp 余留整指数
+		END,	// end state        末态
 	};
 
 	// 数值字符类别
@@ -37,56 +30,42 @@ namespace Analyzer {
 		// 唯一实例
 		private static NumericAnalyzer? uniqueInstance = null;
 
-		// n: 尾数位 p: 指数 sgn: 指数符号 w: 基数 d:当前字符数值
-		private Int32 n = 0, p = 0, sgn = 0, w = 0, d =0;
-		private Double value = 0.0;
-		private NA_STATE currState;
-		private Mnemonic numericType;
-
-		public delegate Char GetCharHandler();
-		public delegate void CATHandler(Char currCh);
-		public delegate void RetractHandler();
-#if Debug
-		public delegate void LOGHandler<T>(params T[] vars);
-#endif
-
-		private static GetCharHandler GetChar;
-		private static CATHandler CAT;
-		private static RetractHandler Retract;
-#if Debug
-		private static LOGHandler<String> LOG;
-#endif
-
-		private NumericAnalyzer()
-		{
-
-		}
-
 		// 获取单例
-		public static NumericAnalyzer Instance
-		{
+		public static NumericAnalyzer Instance {
 			get {
 				uniqueInstance ??= new NumericAnalyzer();
 				return uniqueInstance;
 			}
 		}
 
+		// 构造函数
+		private NumericAnalyzer() {
+
+		}
+
+		public delegate Char GetCharHandler();
+		public delegate void CATHandler(Char currCh);
+		public delegate void RetractHandler();
+
+		private static GetCharHandler GetChar;
+		private static CATHandler CAT;
+		private static RetractHandler Retract;
+
 		// 设置委托
-		public static void SetDelegate(GetCharHandler getchar, CATHandler cat, RetractHandler retract
-#if Debug
-			, LOGHandler<String> log
-#endif
-			)
-		{
+		public static void SetDelegate(GetCharHandler getchar, CATHandler cat, RetractHandler retract) {
 			GetChar = new GetCharHandler(getchar);
 			CAT = new CATHandler(cat);
 			Retract = new RetractHandler(retract);
-#if Debug
-			LOG = new LOGHandler<string>(log);
-#endif
 		}
 
+		// n: 尾数位 p: 指数 sgn: 指数符号 w: 基数 d:当前字符数值
+		private Int32 n = 0, p = 0, sgn = 0, w = 0, d =0;
+		private Double value = 0.0;
+		private NA_STATE currState;
+		private Mnemonic numericType;
+
 		private char tmp;
+
 		// 识别数值字符类型
 		private NA_TYPE NA_GetChType()
 		{
@@ -95,9 +74,6 @@ namespace Analyzer {
 			tmp = ch;
 
 			if (Char.IsDigit(ch)) {
-#if Debug
-				Console.WriteLine("\nCnverting: "+ch+"\n");
-#endif
 				d = ch - '0';
 				return NA_TYPE.DIGIT;
 			}
@@ -130,19 +106,12 @@ namespace Analyzer {
 
 		private void NA_Execute(NA_TYPE chType)
 		{
-#if Debug
-			LOG("@ NA_State=", currState.ToString(), " char=", tmp.ToString(), ";");
-			Console.WriteLine("w="+w.ToString()+" n="+n.ToString()+" sgn="+sgn.ToString()+" p="+p.ToString()+" d="+d.ToString());
-#endif
 			switch (currState) {
 				case NA_STATE.BGN:   // 0
 					switch (chType) {
 						case NA_TYPE.DIGIT:
 							currState = NA_STATE.US;
 							n = 0; p = 0; sgn = 1; w = w*10+d;
-#if Debug
-							Console.WriteLine("###\nW="+w.ToString()+"\n");
-#endif
 							break;
 						case NA_TYPE.POINT:
 							currState = NA_STATE.FR;
@@ -153,9 +122,6 @@ namespace Analyzer {
 							Retract();
 							numericType = Mnemonic.INT;
 							value = d;
-#if Debug
-							Console.WriteLine("\n\nvalue = " + value.ToString() + "\n\n");
-#endif
 							break;
 						case NA_TYPE.ALPHA:
 							currState = NA_STATE.END;
