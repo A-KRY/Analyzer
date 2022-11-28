@@ -1,0 +1,15 @@
+G:\Codes\Visual Studio\Complier Principle\Analyzer\obj\Debug\net7.0\Analyzer.csproj.AssemblyReference.cache
+G:\Codes\Visual Studio\Complier Principle\Analyzer\obj\Debug\net7.0\Analyzer.GeneratedMSBuildEditorConfig.editorconfig
+G:\Codes\Visual Studio\Complier Principle\Analyzer\obj\Debug\net7.0\Analyzer.AssemblyInfoInputs.cache
+G:\Codes\Visual Studio\Complier Principle\Analyzer\obj\Debug\net7.0\Analyzer.AssemblyInfo.cs
+G:\Codes\Visual Studio\Complier Principle\Analyzer\obj\Debug\net7.0\Analyzer.csproj.CoreCompileInputs.cache
+G:\Codes\Visual Studio\Complier Principle\Analyzer\bin\Debug\net7.0\Analyzer.exe
+G:\Codes\Visual Studio\Complier Principle\Analyzer\bin\Debug\net7.0\Analyzer.deps.json
+G:\Codes\Visual Studio\Complier Principle\Analyzer\bin\Debug\net7.0\Analyzer.runtimeconfig.json
+G:\Codes\Visual Studio\Complier Principle\Analyzer\bin\Debug\net7.0\Analyzer.dll
+G:\Codes\Visual Studio\Complier Principle\Analyzer\bin\Debug\net7.0\Analyzer.pdb
+G:\Codes\Visual Studio\Complier Principle\Analyzer\obj\Debug\net7.0\Analyzer.dll
+G:\Codes\Visual Studio\Complier Principle\Analyzer\obj\Debug\net7.0\refint\Analyzer.dll
+G:\Codes\Visual Studio\Complier Principle\Analyzer\obj\Debug\net7.0\Analyzer.pdb
+G:\Codes\Visual Studio\Complier Principle\Analyzer\obj\Debug\net7.0\Analyzer.genruntimeconfig.cache
+G:\Codes\Visual Studio\Complier Principle\Analyzer\obj\Debug\net7.0\ref\Analyzer.dll

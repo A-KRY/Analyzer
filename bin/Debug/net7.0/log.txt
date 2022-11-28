@@ -1,0 +1,299 @@
+Step 1
+CurrSGN: LB
+symbolStack: EOF E 
+
+Step 2
+CurrSGN: LB
+symbolStack: EOF E1 T 
+
+Step 3
+CurrSGN: LB
+symbolStack: EOF E1 T1 F 
+
+Step 4
+CurrSGN: LB
+symbolStack: EOF E1 T1 RB E LB 
+oprStack: ( 
+Read next symbol.
+
+Step 5
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E 
+
+Step 6
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T 
+
+Step 7
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 F 
+
+Step 8
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 i 
+oprStack: ( 
+Read next symbol.
+
+Step 9
+CurrSGN: PL
+symbolStack: EOF E1 T1 RB E1 T1 
+
+Step 10
+CurrSGN: PL
+symbolStack: EOF E1 T1 RB E1 
+
+Step 11
+CurrSGN: PL
+symbolStack: EOF E1 T1 RB E1 T PL 
+oprStack: ( + 
+Read next symbol.
+
+Step 12
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T 
+
+Step 13
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 F 
+
+Step 14
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 i 
+oprStack: ( + 
+Read next symbol.
+
+Step 15
+CurrSGN: MU
+symbolStack: EOF E1 T1 RB E1 T1 
+
+Step 16
+CurrSGN: MU
+symbolStack: EOF E1 T1 RB E1 T1 F MU 
+oprStack: ( + * 
+Read next symbol.
+
+Step 17
+CurrSGN: LB
+symbolStack: EOF E1 T1 RB E1 T1 F 
+
+Step 18
+CurrSGN: LB
+symbolStack: EOF E1 T1 RB E1 T1 RB E LB 
+oprStack: ( + * ( 
+Read next symbol.
+
+Step 19
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 RB E 
+
+Step 20
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T 
+
+Step 21
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T1 F 
+
+Step 22
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T1 i 
+oprStack: ( + * ( 
+Read next symbol.
+
+Step 23
+CurrSGN: MI
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T1 
+
+Step 24
+CurrSGN: MI
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 
+
+Step 25
+CurrSGN: MI
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T MI 
+oprStack: ( + * ( - 
+Read next symbol.
+
+Step 26
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T 
+
+Step 27
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T1 F 
+
+Step 28
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T1 i 
+oprStack: ( + * ( - 
+Read next symbol.
+
+Step 29
+CurrSGN: DI
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T1 
+
+Step 30
+CurrSGN: DI
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T1 F DI 
+oprStack: ( + * ( - / 
+Read next symbol.
+
+Step 31
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T1 F 
+
+Step 32
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T1 i 
+oprStack: ( + * ( - / 
+Read next symbol.
+
+Step 33
+CurrSGN: RB
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 T1 
+
+Step 34
+CurrSGN: RB
+symbolStack: EOF E1 T1 RB E1 T1 RB E1 
+
+Step 35
+CurrSGN: RB
+symbolStack: EOF E1 T1 RB E1 T1 RB 
+(/, 2237, x, T1)
+(-, 3.116, T1, T2)
+oprStack: ( + * 
+Read next symbol.
+
+Step 36
+CurrSGN: RB
+symbolStack: EOF E1 T1 RB E1 T1 
+
+Step 37
+CurrSGN: RB
+symbolStack: EOF E1 T1 RB E1 
+
+Step 38
+CurrSGN: RB
+symbolStack: EOF E1 T1 RB 
+(*, 5, T2, T3)
+(+, 230, T3, T4)
+oprStack: 
+Read next symbol.
+
+Step 39
+CurrSGN: MU
+symbolStack: EOF E1 T1 
+
+Step 40
+CurrSGN: MU
+symbolStack: EOF E1 T1 F MU 
+oprStack: * 
+Read next symbol.
+
+Step 41
+CurrSGN: LB
+symbolStack: EOF E1 T1 F 
+
+Step 42
+CurrSGN: LB
+symbolStack: EOF E1 T1 RB E LB 
+oprStack: * ( 
+Read next symbol.
+
+Step 43
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E 
+
+Step 44
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T 
+
+Step 45
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 F 
+
+Step 46
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 i 
+oprStack: * ( 
+Read next symbol.
+
+Step 47
+CurrSGN: PL
+symbolStack: EOF E1 T1 RB E1 T1 
+
+Step 48
+CurrSGN: PL
+symbolStack: EOF E1 T1 RB E1 
+
+Step 49
+CurrSGN: PL
+symbolStack: EOF E1 T1 RB E1 T PL 
+oprStack: * ( + 
+Read next symbol.
+
+Step 50
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T 
+
+Step 51
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 F 
+
+Step 52
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 i 
+oprStack: * ( + 
+Read next symbol.
+
+Step 53
+CurrSGN: DI
+symbolStack: EOF E1 T1 RB E1 T1 
+
+Step 54
+CurrSGN: DI
+symbolStack: EOF E1 T1 RB E1 T1 F DI 
+oprStack: * ( + / 
+Read next symbol.
+
+Step 55
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 F 
+
+Step 56
+CurrSGN: i
+symbolStack: EOF E1 T1 RB E1 T1 i 
+oprStack: * ( + / 
+Read next symbol.
+
+Step 57
+CurrSGN: RB
+symbolStack: EOF E1 T1 RB E1 T1 
+
+Step 58
+CurrSGN: RB
+symbolStack: EOF E1 T1 RB E1 
+
+Step 59
+CurrSGN: RB
+symbolStack: EOF E1 T1 RB 
+(/, val, tmp, T5)
+(+, cnt, T5, T6)
+oprStack: * 
+Read next symbol.
+
+Step 60
+CurrSGN: EOF
+symbolStack: EOF E1 T1 
+
+Step 61
+CurrSGN: EOF
+symbolStack: EOF E1 
+
+Step 62
+CurrSGN: EOF
+symbolStack: EOF 
+(*, T4, T6, T7)
+
+Finish.
+
